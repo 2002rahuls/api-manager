@@ -1,12 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import CreateKeyModal from "../components/CreateKeyModal";
 
 export default function Dashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [revealedKeys, setRevealedKeys] = useState(new Set());
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Initialize theme on component mount
+  useEffect(() => {
+    // Check if user has a theme preference in localStorage
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    // Set initial theme based on localStorage or system preference
+    const initialTheme = savedTheme ? savedTheme === "dark" : prefersDark;
+    setIsDarkMode(initialTheme);
+
+    // Apply theme to document
+    document.documentElement.classList.toggle("dark", initialTheme);
+  }, []);
+
+  // Handle theme toggle
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    document.documentElement.classList.toggle("dark", newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
+  };
+
   const [apiKeys, setApiKeys] = useState([
     {
       id: 1,
@@ -72,16 +98,16 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-4 sm:py-8">
+    <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
             Overview
           </h1>
-          <span className="status-badge operational">Operational</span>
+          <span className="status-badge operational text-xs">Operational</span>
         </div>
-        <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-4 w-full sm:w-auto">
-          <div className="flex items-center gap-2 sm:gap-4">
+        <div className="flex items-center justify-end gap-1 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-4 mr-1 sm:mr-2">
             <a
               href="https://github.com"
               className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
@@ -133,12 +159,13 @@ export default function Dashboard() {
             </a>
           </div>
           <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            onClick={toggleTheme}
+            className="p-1.5 sm:p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+            aria-label="Toggle theme"
           >
             {isDarkMode ? (
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -152,7 +179,7 @@ export default function Dashboard() {
               </svg>
             ) : (
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

@@ -33,11 +33,11 @@ module.exports = {
           300: "#d1d5db",
         },
         dark: {
-          primary: "#1a1b26", // Main background
-          secondary: "#24283b", // Card/modal background
-          accent: "#7aa2f7", // Primary accent color
-          text: "#a9b1d6", // Main text color
-          muted: "#565f89", // Secondary text/border color
+          primary: "#1a1b26",
+          secondary: "#24283b",
+          accent: "#7aa2f7",
+          text: "#a9b1d6",
+          muted: "#565f89",
         },
       },
     },
