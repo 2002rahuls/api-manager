@@ -10,7 +10,7 @@ import EmptyState from "./components/EmptyState";
 import UsageAnalytics from "./components/UsageAnalytics";
 import ApiKeysSidebar from "./components/ApiKeysSidebar";
 import { supabase } from "../lib/supabase";
-
+//function to fetch api keys from supabase
 export default function Dashboard() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
