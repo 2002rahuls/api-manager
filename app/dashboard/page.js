@@ -72,10 +72,12 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-6">
+    <div className="container mx-auto px-4 py-4 sm:py-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-gray-900">Overview</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+            Overview
+          </h1>
           <span className="status-badge operational">Operational</span>
         </div>
         <div className="flex items-center gap-4">
@@ -131,19 +133,21 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="plan-card mb-8">
-        <div className="p-6">
-          <div className="flex justify-between items-start mb-6">
+      <div className="plan-card mb-6 sm:mb-8">
+        <div className="p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
             <div>
               <div className="text-white/80 text-sm font-medium mb-1">
                 CURRENT PLAN
               </div>
-              <h2 className="text-3xl font-bold text-white mb-4">Researcher</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                Researcher
+              </h2>
               <div className="flex items-center gap-1">
                 <span className="text-sm text-white/90">API Limit</span>
               </div>
             </div>
-            <button className="text-sm bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg transition-colors">
+            <button className="text-sm bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-lg transition-colors w-full sm:w-auto">
               Manage Plan
             </button>
           </div>
@@ -155,40 +159,42 @@ export default function Dashboard() {
       </div>
 
       <div className="mb-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-gray-900">API Keys</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+            API Keys
+          </h2>
           <button
             onClick={() => setIsCreateModalOpen(true)}
-            className="btn btn-primary inline-flex items-center"
+            className="btn btn-primary inline-flex items-center w-full sm:w-auto justify-center"
           >
             <span className="mr-2">+</span>
             Create new key
           </button>
         </div>
-        <p className="text-gray-600">
+        <p className="text-sm sm:text-base text-gray-600">
           The key is used to authenticate your requests to the Research API. To
           learn more, see the documentation page.
         </p>
       </div>
 
-      <div className="api-keys-table">
-        <table>
+      <div className="api-keys-table overflow-x-auto">
+        <table className="min-w-full">
           <thead>
             <tr>
-              <th>NAME</th>
-              <th>USAGE</th>
-              <th>KEY</th>
+              <th className="text-left">NAME</th>
+              <th className="text-left">USAGE</th>
+              <th className="text-left">KEY</th>
               <th className="text-right">OPTIONS</th>
             </tr>
           </thead>
           <tbody>
             {apiKeys.map((apiKey) => (
               <tr key={apiKey.id}>
-                <td>{apiKey.name}</td>
-                <td>{apiKey.usage}</td>
+                <td className="whitespace-nowrap">{apiKey.name}</td>
+                <td className="whitespace-nowrap">{apiKey.usage}</td>
                 <td>
                   <div className="flex items-center gap-2">
-                    <code className="api-key flex-1">
+                    <code className="api-key flex-1 text-sm sm:text-base">
                       {revealedKeys.has(apiKey.id)
                         ? apiKey.actualKey
                         : apiKey.key}
